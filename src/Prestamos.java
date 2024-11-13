@@ -1,6 +1,6 @@
 import java.sql.Date;
 
-public class Prestamo {
+public class Prestamos {
 
 	private Date fechaInicio;
 	private Date fechaFin;
@@ -9,7 +9,7 @@ public class Prestamo {
 	private RecursoMultimedia recurso;
 	private Usuarios usuario;
 	
-	public Prestamo(Date fechaInicio, Date fechaFin, int renovacionesPermitidas, String estado,
+	public Prestamos(Date fechaInicio, Date fechaFin, int renovacionesPermitidas, String estado,
 			RecursoMultimedia recurso, Usuarios usuario) {
 		super();
 		this.fechaInicio = fechaInicio;
@@ -20,6 +20,12 @@ public class Prestamo {
 		this.usuario = usuario;
 	}
 	
-	
+	public void renovarPrestamo() {
+		if(renovacionesPermitidas > 0) {
+			
+			
+			renovacionesPermitidas --;
+		}
+	}
 	
 }

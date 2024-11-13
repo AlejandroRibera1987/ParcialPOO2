@@ -2,21 +2,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Usuarios {
-	private int idUsuario;
+	
 	private String nombre;
 	private String email;
-	private List<Prestamos> historialPrestamo;
+	private List<Prestamos> historialPrestamos;
 	private List<RecursoMultimedia> favoritos;
+	private int limitePrestamosSimultaneos;
 	
-	public Usuarios(int idUsuario, String nombre, String email) {
-		this.idUsuario = idUsuario;
+	public Usuarios(String nombre, String email, int limitePrestamosSimultaneos) {
+		super();
 		this.nombre = nombre;
 		this.email = email;
-		this.historialPrestamo = new ArrayList<>();
+		this.historialPrestamos = new ArrayList<>();
 		this.favoritos = new ArrayList<>();
+		this.limitePrestamosSimultaneos = limitePrestamosSimultaneos;
 	}
 	
 	
+	public void agregarFavorito(RecursoMultimedia recurso) {
+		favoritos.add(recurso);
+	}
+	
+	public boolean puedeRealizarPrestamo() {
+		return historialPrestamos.size() < limitePrestamosSimultaneos;
+	}
 	
 	
 }

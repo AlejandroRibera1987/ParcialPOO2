@@ -19,13 +19,34 @@ public class RecursoMultimedia {
 		this.autor = new ArrayList<>();
 		this.añoPublicacion = añoPublicacion;
 		this.genero = genero;
-		this.estado = estado;
-		this.calificacion = calificacion;
+		this.estado = "disponible";
+		this.calificacion = 0.0;
 		this.reseñas = new ArrayList<>();
 	}
 	
-	public void agregarResaña(String reseña) {
+	public int getId() {
+		return idRecurso;
+	}
+	
+	public String getTitulo() {
+		return titulo;
+	}
+	
+	public String getEstado () {
+		return estado;
+	}
+	
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+	
+	public void actualizarCalificacion(double nuevaCalificacion) {
+		calificacion = (calificacion * reseñas.size() + nuevaCalificacion) / (reseñas.size() + 1);
+	}
+
+	public void agregarResaña(String reseña, double calificacion) {
 		reseñas.add(reseña);
+		actualizarCalificacion(calificacion);
 	}
 
 	

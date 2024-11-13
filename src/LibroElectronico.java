@@ -7,12 +7,12 @@ public class LibroElectronico extends RecursoMultimedia {
 	private int ISBN;
 	
 	public LibroElectronico(int idRecurso, String titulo, int añoPublicacion, String genero, String estado,
-			double calificacion, int numeroPaginas, String formato, double tamañoArchivo, int iSBN) {
+			double calificacion, int numeroPaginas, String formato, double tamañoArchivo, int ISBN) {
 		super(idRecurso, titulo, añoPublicacion, genero, estado, calificacion);
 		this.numeroPaginas = numeroPaginas;
 		this.formato = formato;
 		this.tamañoArchivo = tamañoArchivo;
-		ISBN = iSBN;
+		this.ISBN = ISBN;
 	}
 	
 	

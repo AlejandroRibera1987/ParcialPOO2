@@ -1,15 +1,15 @@
 
 public class Administrador extends Usuarios {
 
-	public Administrador(int idUsuario, String nombre, String email) {
-		super(idUsuario, nombre, email);
+	public Administrador(String nombre, String email) {
+		super(nombre, email, Integer.MAX_VALUE);
 	}
-
-	public void gestionarRecurso(RecursoMultimedia recurso) {
+	
+	public void gestionarRecursos() {
 		
 	}
 	
-	public void gestionarUsuario(Usuarios usuario) {
+	public void generarReportes() {
 		
 	}
 	

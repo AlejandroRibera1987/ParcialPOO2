@@ -1,9 +1,10 @@
 
 public class UsuarioPremium extends Usuarios {
 
-	public UsuarioPremium(int idUsuario, String nombre, String email) {
-		super(idUsuario, nombre, email);
+	public UsuarioPremium(String nombre, String email) {
+		super(nombre, email, Integer.MAX_VALUE);
 	}
+
 	
 	
 	
