@@ -24,6 +24,22 @@ public class RecursoMultimedia {
 		this.reseñas = new ArrayList<>();
 	}
 	
+	public String getGenero() {
+		return genero;
+	}
+	
+	public List<String> getAutor() {
+		return autor;
+	}
+
+	public int getAñoPublicacion() {
+		return añoPublicacion;
+	}
+
+	public double getCalificacion() {
+		return calificacion;
+	}
+
 	public int getId() {
 		return idRecurso;
 	}
@@ -40,14 +56,15 @@ public class RecursoMultimedia {
 		this.estado = estado;
 	}
 	
-	public void actualizarCalificacion(double nuevaCalificacion) {
-		calificacion = (calificacion * reseñas.size() + nuevaCalificacion) / (reseñas.size() + 1);
-	}
-
 	public void agregarResaña(String reseña, double calificacion) {
 		reseñas.add(reseña);
 		actualizarCalificacion(calificacion);
 	}
+	
+	public void actualizarCalificacion(double nuevaCalificacion) {
+		calificacion = (calificacion * reseñas.size() + nuevaCalificacion) / (reseñas.size() + 1);
+	}
+
 
 	
 	

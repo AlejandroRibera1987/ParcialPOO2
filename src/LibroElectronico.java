@@ -14,6 +14,12 @@ public class LibroElectronico extends RecursoMultimedia {
 		this.tamañoArchivo = tamañoArchivo;
 		this.ISBN = ISBN;
 	}
+
+	@Override
+	public String toString() {
+		return "LibroElectronico [numeroPaginas= " + numeroPaginas + ", formato= " + formato + ", tamañoArchivo= "
+				+ tamañoArchivo + ", ISBN= " + ISBN + "]";
+	}
 	
 	
 	
