@@ -35,9 +35,16 @@ public class RevistaDigital extends RecursoMultimedia {
 	public int getArticulos() {
 		return articulos;
 	}
-	
-	
 
+
+	@Override
+	public String toString() {
+		return "RevistaDigital [numeroEdicion= " + numeroEdicion + ", periodicidad= " + periodicidad + ", ISSN= " + ISSN
+				+ ", articulos= " + articulos + "]";
+	}
+	
+	
+	
 	
 	
 

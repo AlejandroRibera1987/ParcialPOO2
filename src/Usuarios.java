@@ -4,9 +4,9 @@ import java.util.List;
 
 public class Usuarios {
 	
-	private int idUsuario;
-	private String nombre;
-	private String email;
+	protected int idUsuario;
+	protected String nombre;
+	protected String email;
 	private List<Prestamos> historialPrestamos;
 	private List<RecursoMultimedia> favoritos;
 	private int limitePrestamosSimultaneos;
@@ -46,6 +46,16 @@ public class Usuarios {
 	public int getLimitePrestamosSimultaneos() {
 		return limitePrestamosSimultaneos;
 	}
+	
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
 
 	public void agregarFavorito(RecursoMultimedia recurso) {
 		favoritos.add(recurso);
@@ -54,7 +64,20 @@ public class Usuarios {
 	public boolean puedeRealizarPrestamo() {
 		return historialPrestamos.size() < limitePrestamosSimultaneos;
 	}
-	
+
+
+
+	@Override
+	public String toString() {
+		return "Usuario Regular [idUsuario= " + idUsuario + " Nombre= " + nombre + " Email= " + email + " ]";
+	}
+
+
+
+
+
+
+
 	
 	
 }

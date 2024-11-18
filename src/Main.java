@@ -3,42 +3,46 @@ import java.util.Scanner;
 public class Main {
 	public static void main(String[] args) {
 		
-		Scanner scanner = new Scanner(System.in);
 		BibliotecaDigital biblioteca = new BibliotecaDigital();
+		Scanner scanner = new Scanner(System.in);
+		Administrador admin = new Administrador(1, "Alejandro", "alejandro@gmial.com");
 		
-		while(true) {
-			System.out.println("------------Bienvenido a la Biblioteca Digital--------------");
-			System.out.println("1- Gestionar Recursos");
-			System.out.println("2- Gestionar Usuarios");
-			System.out.println("3- Sistema de prestamos");
-			System.out.println("4- Generar reporte");
-			System.out.println("5- Salir");
-			int option = scanner.nextInt();
+		boolean salir = false;
+		
+		while (!salir) {
+			System.out.println("\n-------Sistema Biblioteca Digital----------");
+			System.out.println("--------------Menu Principal------------");
+			System.out.println("1- Menu Administrador");
+			System.out.println("2- menu Usuario");
+			System.out.println("3- salir");
 			
-			switch (option) {
+			int opcion = scanner.nextInt();
+			scanner.nextLine();
+			
+			
+			switch (opcion) {
 			case 1:
-				
+				Administrador.menuAdministrador(biblioteca, scanner);
 				break;
 			case 2:
-				
+				System.out.println("menu Usuario");
 				break;
 			case 3:
-				
+				System.out.println("Saliendo........");
+				salir = true;
 				break;
-			case 4:
-				
-				break;
-			case 5:
-				System.out.println("Saliendo .....");
-				return;
-
 			default:
-				System.out.println("Opcion no Valida");
+				System.out.println("Opcion no valida");
 				break;
 			}
+			
+			
 		}
 		
 		
 		
 	}
+
+	
+
 }

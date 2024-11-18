@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class RecursoMultimedia {
 	private int idRecurso;
@@ -56,6 +57,18 @@ public class RecursoMultimedia {
 		this.estado = estado;
 	}
 	
+	public void setTitulo(String titulo) {
+		this.titulo = titulo;
+	}
+
+	public void setAñoPublicacion(int añoPublicacion) {
+		this.añoPublicacion = añoPublicacion;
+	}
+
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+
 	public void agregarResaña(String reseña, double calificacion) {
 		reseñas.add(reseña);
 		actualizarCalificacion(calificacion);
@@ -65,8 +78,6 @@ public class RecursoMultimedia {
 		calificacion = (calificacion * reseñas.size() + nuevaCalificacion) / (reseñas.size() + 1);
 	}
 
-
-	
 	
 	
 }

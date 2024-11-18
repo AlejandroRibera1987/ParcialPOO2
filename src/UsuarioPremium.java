@@ -10,4 +10,10 @@ public class UsuarioPremium extends Usuarios {
 		return true;
 	}
 	
+	@Override
+	public String toString() {
+		return "Usuario Premium [idUsuario= " + idUsuario + " Nombre= " + nombre + " Email= " + email + " ]";
+	}
+	
+	
 }
