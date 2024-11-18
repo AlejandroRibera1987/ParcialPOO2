@@ -74,6 +74,30 @@ public class BibliotecaDigital {
 		return null;
 	}
 	
+	public List<RecursoMultimedia> buscarPorGenero(String genero){
+		List<RecursoMultimedia> resultados = new ArrayList<>();
+		
+		for (RecursoMultimedia recurso : catalogo) {
+			if (recurso.getGenero().equalsIgnoreCase(genero)) {
+				resultados.add(recurso);
+			}
+		}
+		
+		return resultados;
+	}
+	
+	public List<RecursoMultimedia> buscarPorAutor(String autor){
+	    List<RecursoMultimedia> resultados = new ArrayList<>();
+	    
+	    for (RecursoMultimedia recurso : catalogo) { 
+	        if (recurso.getAutor().equalsIgnoreCase(autor)) {
+	            resultados.add(recurso);
+	        }
+	    }
+	    
+	    return resultados;
+	}
+	
 	
 	public boolean eliminarRecurso(int idRecurso) {
 		

@@ -5,19 +5,19 @@ import java.util.Scanner;
 public class RecursoMultimedia {
 	private int idRecurso;
 	private String titulo;
-	private List<String> autor;
+	private String autor;
 	private int añoPublicacion;
 	private String genero;
 	private String estado;
 	private double calificacion;
 	private List<String> reseñas;
 	
-	public RecursoMultimedia(int idRecurso, String titulo, int añoPublicacion, String genero,
+	public RecursoMultimedia(int idRecurso, String titulo, String autor, int añoPublicacion, String genero,
 			String estado, double calificacion) {
 		super();
 		this.idRecurso = idRecurso;
 		this.titulo = titulo;
-		this.autor = new ArrayList<>();
+		this.autor = autor;
 		this.añoPublicacion = añoPublicacion;
 		this.genero = genero;
 		this.estado = "disponible";
@@ -29,7 +29,7 @@ public class RecursoMultimedia {
 		return genero;
 	}
 	
-	public List<String> getAutor() {
+	public String getAutor() {
 		return autor;
 	}
 

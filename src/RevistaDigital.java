@@ -9,7 +9,7 @@ public class RevistaDigital extends RecursoMultimedia {
 	
 	public RevistaDigital(int idRecurso, String titulo, int añoPublicacion, String genero, String estado,
 			double calificacion, int numeroEdicion, int periodicidad, int iSSN, int articulos) {
-		super(idRecurso, titulo, añoPublicacion, genero, estado, calificacion);
+		super(idRecurso, titulo, estado, añoPublicacion, genero, estado, calificacion);
 		this.numeroEdicion = numeroEdicion;
 		this.periodicidad = periodicidad;
 		ISSN = iSSN;

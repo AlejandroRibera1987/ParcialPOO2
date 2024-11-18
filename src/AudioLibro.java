@@ -6,7 +6,7 @@ public class AudioLibro extends RecursoMultimedia {
 	
 	public AudioLibro(int idRecurso, String titulo, int añoPublicacion, String genero, String estado,
 					  double calificacion, double duracionTotal, String idioma) {
-		super(idRecurso, titulo, añoPublicacion, genero, estado, calificacion);
+		super(idRecurso, titulo, idioma, añoPublicacion, genero, estado, calificacion);
 		this.duracionTotal = duracionTotal;
 		this.idioma = idioma;
 	}

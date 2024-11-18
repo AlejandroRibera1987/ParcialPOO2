@@ -1,3 +1,4 @@
+import java.util.List;
 import java.util.Scanner;
 
 public class Administrador extends Usuarios {
@@ -6,37 +7,6 @@ public class Administrador extends Usuarios {
 		super(idUsuario, nombre, email, Integer.MAX_VALUE);
 	}
 	
-	public void gestionarRecursos(String accion, BibliotecaDigital biblioteca, RecursoMultimedia recurso) {
-		switch (accion.toLowerCase()) {
-		case "agregar":
-			biblioteca.agregarRecurso(recurso);
-			System.out.println("Se Agrego Correctamente");
-			break;
-		
-		case "eliminar":
-			if (biblioteca.eliminarRecurso(recurso.getId())) {
-				System.out.println("Se elimino correctamente");
-			}else {
-				System.err.println("Recurso no Encontrado");
-			}
-			break;
-		case "buscar":
-			RecursoMultimedia recursoBuscado = biblioteca.buscarRecurso(getIdUsuario());
-			if(recursoBuscado != null) {
-				System.out.println("Recurso buscado: " + recursoBuscado.getTitulo());
-				System.out.println("Detalles: " + recursoBuscado.toString());
-			}else {
-				System.err.println("No encontramos el Recurso");
-			}
-			break;
-
-		default:
-			System.err.println("Opcion Incorrecta, agregar, eliminar o buscar");
-			break;
-		}
-	}
-	
-
 	public void generarReportes(BibliotecaDigital biblioteca) {
 			
 			boolean hayPrestamosActivos = false;
@@ -66,15 +36,17 @@ public class Administrador extends Usuarios {
 
 	        while (!salir) {
 	            System.out.println("\n------------Menú de Administrador------------");
-	            System.out.println("1. Agregar Recurso");
-	            System.out.println("2. Modificar Recurso");
-	            System.out.println("3. Eliminar Recurso");
-	            System.out.println("4. Listar Recursos");
-	            System.out.println("5. Listar Usuarios");
-	            System.out.println("6. Registrar Usuario");
-	            System.out.println("7. Modificar Usuario");
-	            System.out.println("8. Cambiar Plan de Usuario");
-	            System.out.println("9. Volver al Menú Principal");
+	            System.out.println("1- Agregar Recurso");
+	            System.out.println("2- Modificar Recurso");
+	            System.out.println("3- Eliminar Recurso");
+	            System.out.println("4- Listar Recursos");
+	            System.out.println("5- Listar Usuarios");
+	            System.out.println("6- Registrar Usuario");
+	            System.out.println("7- Modificar Usuario");
+	            System.out.println("8- Cambiar Plan de Usuario");
+	            System.out.println("9- Buscar recurso por Genero");
+	            System.out.println("10- Buscar recurso por Autor");
+	            System.out.println("12- Volver al Menú Principal");
 	            System.out.print("Seleccione una opción: ");
 	            
 				int opcion = scanner.nextInt();
@@ -216,7 +188,42 @@ public class Administrador extends Usuarios {
 	                    
 	                    biblioteca.cambiarPlan(idCambioUsuario, nuevoPlanPremium);
 	                    break;
+	                    
 	                case 9:
+	                	
+	                	System.out.println("Ingrese el genero a buscar: ");
+	                	String buscarGenero = scanner.nextLine();
+	                	
+	                	List<RecursoMultimedia> recursosGenero = biblioteca.buscarPorGenero(buscarGenero);
+	                	
+	                	if (!recursosGenero.isEmpty()) {
+							for (RecursoMultimedia recurso : recursosGenero) {
+								System.out.println(recurso);
+							}
+						}else {
+							System.err.println("No se encontro el genero Buscado");
+						}
+	                	
+	                	
+	                	break;
+	                case 10:
+	                	
+	                	System.out.println("Ingrese el nombre del autor: ");
+	                	String buscarAutor = scanner.nextLine();
+	                	
+	                	List<RecursoMultimedia> recursosAutor = biblioteca.buscarPorAutor(buscarAutor);
+	                	
+	                	if (!recursosAutor.isEmpty()) {
+							for (RecursoMultimedia recurso : recursosAutor) {
+								System.out.println(recurso);
+							}
+						}else {
+							System.out.println("No se encontro el Autor buscado");
+						}
+	                	
+	                	
+	                	break;
+	                case 12:
 	                    System.out.println("Volviendo al Menú Principal...");
 	                    salir = true;
 	                    break;
