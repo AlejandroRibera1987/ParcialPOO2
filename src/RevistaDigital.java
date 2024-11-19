@@ -39,7 +39,7 @@ public class RevistaDigital extends RecursoMultimedia {
 
 	@Override
 	public String toString() {
-		return "RevistaDigital [numeroEdicion= " + numeroEdicion + ", periodicidad= " + periodicidad + ", ISSN= " + ISSN
+		return "RevistaDigital [ID= " + idRecurso + " Titulo= " + titulo + " Genero= " + genero + " numeroEdicion= " + numeroEdicion + ", periodicidad= " + periodicidad + ", ISSN= " + ISSN
 				+ ", articulos= " + articulos + "]";
 	}
 	

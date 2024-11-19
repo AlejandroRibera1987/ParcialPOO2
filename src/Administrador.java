@@ -7,28 +7,6 @@ public class Administrador extends Usuarios {
 		super(idUsuario, nombre, email, Integer.MAX_VALUE);
 	}
 	
-	public void generarReportes(BibliotecaDigital biblioteca) {
-			
-			boolean hayPrestamosActivos = false;
-			
-			System.out.println("Reporte de Prestamos");
-			
-			for (Prestamos prestamo : biblioteca.getPrestamos()) {
-				if(prestamo.getEstado().equalsIgnoreCase("activo")) {
-					hayPrestamosActivos = true;
-					System.out.println("Recurso: " + prestamo.getRecurso().getTitulo());
-					System.out.println("Nombre de Usuario: " + prestamo.getUsuario().getNombre());
-					System.out.println("Fecha de Inicio: " + prestamo.getFechaInicio());
-					System.out.println("Fecha Finalizacion: " + prestamo.getFechaFin());
-					System.out.println("------------------------------");
-				}
-			}
-			
-	        if (!hayPrestamosActivos) {
-	            System.out.println("No hay prestamos Activos");
-	        }
-			
-	}
 	
 	 public static void menuAdministrador(BibliotecaDigital biblioteca, Scanner sccanner) {
 	        boolean salir = false;
@@ -46,6 +24,7 @@ public class Administrador extends Usuarios {
 	            System.out.println("8- Cambiar Plan de Usuario");
 	            System.out.println("9- Buscar recurso por Genero");
 	            System.out.println("10- Buscar recurso por Autor");
+	            System.out.println("11- Generar Reporte Prestamos");
 	            System.out.println("12- Volver al Menú Principal");
 	            System.out.print("Seleccione una opción: ");
 	            
@@ -221,6 +200,29 @@ public class Administrador extends Usuarios {
 							System.out.println("No se encontro el Autor buscado");
 						}
 	                	
+	                	
+	                	break;
+	                	
+	                case 11:
+	                	
+	        			boolean hayPrestamosActivos = false;
+	        			
+	        			System.out.println("-------------Reporte de Prestamos----------------");
+	        			
+	        			for (Prestamos prestamo : biblioteca.getPrestamos()) {
+	        				if(prestamo.getEstado().equalsIgnoreCase("activo")) {
+	        					hayPrestamosActivos = true;
+	        					System.out.println("Recurso: " + prestamo.getRecurso().getTitulo());
+	        					System.out.println("Nombre de Usuario: " + prestamo.getUsuario().getNombre());
+	        					System.out.println("Fecha de Inicio: " + prestamo.getFechaInicio());
+	        					System.out.println("Fecha Finalizacion: " + prestamo.getFechaFin());
+	        					System.out.println("------------------------------");
+	        				}
+	        			}
+	        			
+	        	        if (!hayPrestamosActivos) {
+	        	            System.out.println("No hay prestamos Activos");
+	        	        }
 	                	
 	                	break;
 	                case 12:

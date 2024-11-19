@@ -13,7 +13,7 @@ public class AudioLibro extends RecursoMultimedia {
 
 	@Override
 	public String toString() {
-		return "AudioLibro [duracionTotal= " + duracionTotal + ", idioma= " + idioma + "]";
+		return "AudioLibro [ID= " + idRecurso + " Titulo= " + titulo + " Genero= " + genero + " duracionTotal= " + duracionTotal + " idioma= " + idioma + "]";
 	}
 	
 

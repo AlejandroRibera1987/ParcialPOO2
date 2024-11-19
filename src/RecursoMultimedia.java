@@ -3,13 +3,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class RecursoMultimedia {
-	private int idRecurso;
-	private String titulo;
-	private String autor;
-	private int añoPublicacion;
-	private String genero;
-	private String estado;
-	private double calificacion;
+	public int idRecurso;
+	public String titulo;
+	public String autor;
+	public int añoPublicacion;
+	public String genero;
+	public String estado;
+	public double calificacion;
 	private List<String> reseñas;
 	
 	public RecursoMultimedia(int idRecurso, String titulo, String autor, int añoPublicacion, String genero,

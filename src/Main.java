@@ -5,6 +5,8 @@ public class Main {
 		
 		BibliotecaDigital biblioteca = new BibliotecaDigital();
 		Scanner scanner = new Scanner(System.in);
+		Administrador admin = new Administrador(1, "Alejandro", "Alejandr@gmail.com");
+	
 		
 		boolean salir = false;
 		

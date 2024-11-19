@@ -17,8 +17,8 @@ public class LibroElectronico extends RecursoMultimedia {
 
 	@Override
 	public String toString() {
-		return "LibroElectronico [numeroPaginas= " + numeroPaginas + ", formato= " + formato + ", tamañoArchivo= "
-				+ tamañoArchivo + ", ISBN= " + ISBN + "]";
+		return "LibroElectronico\n [ID= " + idRecurso + " Titulo= " + titulo + " Genero= " + genero + " numeroPaginas= " + numeroPaginas + " formato= " + formato + " tamañoArchivo= "
+				+ tamañoArchivo + " ISBN= " + ISBN + " ]";
 	}
 	
 	
