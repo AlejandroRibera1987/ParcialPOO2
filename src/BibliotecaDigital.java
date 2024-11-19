@@ -39,20 +39,6 @@ public class BibliotecaDigital {
 		System.out.println("Se registro Correctamente el Usuario");
 	}
 	
-	public void registrarPrestamo(Prestamos prestamo) {
-		
-		if (prestamo.getRecurso().getEstado().equalsIgnoreCase("disponible")) {
-			if(prestamo.getUsuario().puedeRealizarPrestamo()) {
-				prestamos.add(prestamo);
-				prestamo.getRecurso().setEstado("prestado");					
-			}else {
-				System.out.println("El usuario ya cumple con el limite de prestamos");
-			}
-		}else {
-			System.out.println("No esta disponible para el prestamo");
-		}
-	}
-	
 	public RecursoMultimedia buscarRecurso(int idRecurso) {
 		
 		for (RecursoMultimedia recurso : catalogo) {
@@ -147,10 +133,10 @@ public class BibliotecaDigital {
 		if (usuario != null) {
 			if (esPremium) {
 				usuarios.remove(usuario);
-				usuarios.add(new UsuarioPremium(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail()));
+				usuarios.add(new UsuarioPremium(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), usuario.getLimitePrestamosSimultaneos(), usuario.getPrestamosActivos()));
 			}else {
 				usuarios.remove(usuario);
-				usuarios.add(new Usuarios(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), 5));
+				usuarios.add(new Usuarios(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), usuario.getLimitePrestamosSimultaneos(), usuario.getPrestamosActivos()));
 			}
 			
 			System.out.println("Se actualizo el plan Correctamente");

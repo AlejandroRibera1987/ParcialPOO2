@@ -1,4 +1,6 @@
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Prestamos {
 
@@ -8,18 +10,23 @@ public class Prestamos {
 	private String estado;
 	private RecursoMultimedia recurso;
 	private Usuarios usuario;
+	private List<Usuarios> reservas;
 	
-	public Prestamos(LocalDate fechaInicio, LocalDate fechaFin, int renovacionesPermitidas, String estado,
-			RecursoMultimedia recurso, Usuarios usuario) {
+	public Prestamos(LocalDate fechaInicio, LocalDate fechaFin, int renovacionesPermitidas, 
+					RecursoMultimedia recurso, Usuarios usuario) {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaFin;
-		this.renovacionesPermitidas = renovacionesPermitidas;
+		this.renovacionesPermitidas = 5;
 		this.estado = "activo";
 		this.recurso = recurso;
 		this.usuario = usuario;
+		this.reservas = new ArrayList<>();		
 	}
 	
+	public Prestamos() {
+		
+	}
 	
 	
 	public LocalDate getFechaInicio() {
@@ -45,37 +52,90 @@ public class Prestamos {
 	public Usuarios getUsuario() {
 		return usuario;
 	}
-
-	public void cambiarEstado(String nuevoEstado) {
-		this.estado = nuevoEstado;
-	}	
 	
-	public void renovarPrestamo(LocalDate nuevaFechaFin) {
+	public void cambiarEstado(String nuevoEstado) {
+	    estado = nuevoEstado;
+	}
+
+	
+	public boolean realizarPrestamo(Usuarios usuario, RecursoMultimedia recurso, BibliotecaDigital biblioteca) {
+		if (!usuario.puedeRealizarPrestamos()) {
+			System.err.println("No es posible realizar prestamo, Limite Alcanzado");
+			return false;
+		}
+		
+		if (!recurso.getEstado().equalsIgnoreCase("disponible")) {
+			System.err.println("El recurso no esta disponible");
+			return false;
+		}
+		
+		LocalDate fechaInicio = LocalDate.now();
+		LocalDate fechaFin = fechaInicio.plusDays(5);
+		int renovaciones = usuario.getRenovacionesPermitidas();
+		Prestamos nuevoPrestamo = new Prestamos(fechaInicio, fechaFin, renovaciones, recurso, usuario);
+		
+		usuario.getHistorialPrestamos().add(nuevoPrestamo);
+		recurso.setEstado("prestado");
+		usuario.incrementarPrestamos();
+		
+		biblioteca.getPrestamos().add(nuevoPrestamo);
+		
+		System.out.println("Se realizo con exito el Prestamo del recurso: " + recurso.getTitulo());
+		
+		return true;
+	}
+	
+	
+	public boolean renovarPrestamo(LocalDate nuevaFechaFin) {
 		
 		if(nuevaFechaFin.isBefore(fechaInicio)) {
 			System.out.println("La fecha final no puede ser anterior a la fecha de inicio");
-			return;
+			return false;
 		}
 		
 		if(renovacionesPermitidas > 0) {
-			this.fechaFin = nuevaFechaFin;
+			fechaFin = nuevaFechaFin;
 			renovacionesPermitidas --;
+			estado = "renovado";
+			System.out.println("Se realizo la renovacion del prestamo con exito");
+			return true;
 		}else{
 			System.out.println("No puedes renovar mas veces");
+			return false;
 		}
+		
 	}
 	
+	public boolean devolverPrestamo() {
+		if (estado.equalsIgnoreCase("finalizado")) {
+			System.out.println("El recurso ya esta devuelto");
+			return false;
+		}
+		
+		cambiarEstado("finalizado");
+		
+		recurso.setEstado("disponible");
+		
+		System.out.println("El prestamo se devolvio con exito");
+		return true;
+	}
+	
+
 	public boolean estaVencido() {
 		return LocalDate.now().isAfter(fechaFin);
 	}
 	
-	public void devolverRecurso() {
-		if (estado.equalsIgnoreCase("activo") || estado.equalsIgnoreCase("renovado")) {
-			cambiarEstado("finalizado");
-			recurso.setEstado("disponible");
-			
+	public void hacerReservas(Usuarios usuario) {
+		if (recurso.getEstado().equalsIgnoreCase("disponible")) {
+			recurso.reservar(usuario);
+		}else if(recurso.getEstado().equalsIgnoreCase("reservado")) {
+			reservas.add(usuario);
+			System.out.println("Se realizo la reserva del Recurso con exito");
+		}else {
+			System.err.println("No esta disponible para la reserva");
 		}
 	}
+
 	
 	
 }

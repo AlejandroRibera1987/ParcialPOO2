@@ -1,13 +1,20 @@
 
 public class UsuarioPremium extends Usuarios {
 
-	public UsuarioPremium(int idUsuario, String nombre, String email) {
-		super(idUsuario, nombre, email, Integer.MAX_VALUE);
-	}
+
 
 	
+	public UsuarioPremium(int idUsuario, String nombre, String email, int limitePrestamosSimultaneos,
+			int prestamosActivos) {
+		super(idUsuario, nombre, email, limitePrestamosSimultaneos, prestamosActivos);
+	}
+
 	public boolean puedeRealizarPrestamo() {
 		return true;
+	}
+	
+	public int getRenovacionesPermitidas() {
+		return Integer.MAX_VALUE;
 	}
 	
 	@Override

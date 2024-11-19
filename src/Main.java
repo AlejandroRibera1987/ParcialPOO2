@@ -4,8 +4,10 @@ public class Main {
 	public static void main(String[] args) {
 		
 		BibliotecaDigital biblioteca = new BibliotecaDigital();
+		Prestamos prestamo = new Prestamos();
 		Scanner scanner = new Scanner(System.in);
 		Administrador admin = new Administrador(1, "Alejandro", "Alejandr@gmail.com");
+		Usuarios usuario = new Usuarios(0, null, null);
 	
 		
 		boolean salir = false;
@@ -23,10 +25,15 @@ public class Main {
 			
 			switch (opcion) {
 			case 1:
-				Administrador.menuAdministrador(biblioteca, scanner);
+				if (admin.getIdUsuario() == 1) {
+					Administrador.menuAdministrador(biblioteca, scanner);					
+				}else {
+					System.err.println("No es Administrador");
+				}
 				break;
 			case 2:
-				System.out.println("menu Usuario");
+				
+				Usuarios.menuUsuario(prestamo, biblioteca, usuario, scanner);
 				break;
 			case 3:
 				System.out.println("Saliendo........");

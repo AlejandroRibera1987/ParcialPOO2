@@ -10,7 +10,7 @@ public class RecursoMultimedia {
 	public String genero;
 	public String estado;
 	public double calificacion;
-	private List<String> reseñas;
+	private List<Usuarios> reservas;
 	
 	public RecursoMultimedia(int idRecurso, String titulo, String autor, int añoPublicacion, String genero,
 			String estado, double calificacion) {
@@ -22,7 +22,7 @@ public class RecursoMultimedia {
 		this.genero = genero;
 		this.estado = "disponible";
 		this.calificacion = 0.0;
-		this.reseñas = new ArrayList<>();
+		this.reservas = new ArrayList<>();
 	}
 	
 	public String getGenero() {
@@ -69,13 +69,20 @@ public class RecursoMultimedia {
 		this.genero = genero;
 	}
 
-	public void agregarResaña(String reseña, double calificacion) {
-		reseñas.add(reseña);
-		actualizarCalificacion(calificacion);
+	public List<Usuarios> getReservas() {
+		return reservas;
 	}
-	
-	public void actualizarCalificacion(double nuevaCalificacion) {
-		calificacion = (calificacion * reseñas.size() + nuevaCalificacion) / (reseñas.size() + 1);
+
+	public boolean reservar(Usuarios usuario) {
+		if("disponible".equalsIgnoreCase(estado)) {
+			estado = "reservado";
+			reservas.add(usuario);
+			System.out.println("La reserva de " + usuario.getNombre() + " fue exitosa");
+			return true;
+		}else {
+			System.err.println("La reserva no esta disponible");
+			return false;
+		}
 	}
 
 	

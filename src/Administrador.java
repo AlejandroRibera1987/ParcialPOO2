@@ -3,12 +3,15 @@ import java.util.Scanner;
 
 public class Administrador extends Usuarios {
 
-	public Administrador(int idUsuario, String nombre, String email) {
-		super(idUsuario, nombre, email, Integer.MAX_VALUE);
+
+	
+	
+	 public Administrador(int idUsuario, String nombre, String email) {
+		super(idUsuario, nombre, email);
+		
 	}
-	
-	
-	 public static void menuAdministrador(BibliotecaDigital biblioteca, Scanner sccanner) {
+
+	public static void menuAdministrador(BibliotecaDigital biblioteca, Scanner sccanner) {
 	        boolean salir = false;
 	        Scanner scanner = new Scanner(System.in);
 
@@ -33,13 +36,19 @@ public class Administrador extends Usuarios {
 
 	            switch (opcion) {
 	                case 1:
-	                    System.out.println("Seleccione el tipo de Recurso");
+	                    System.out.println("\nSeleccione el tipo de Recurso");
 	                    System.out.println("1- Audio Libro");
 	                    System.out.println("2- Libro Electronico");
 	                    System.out.println("3- Revista Digital");
+	                    System.out.println("4- Volver");
 	                    int tipo = scanner.nextInt();
 	                    scanner.nextLine();
 	                    
+	                    if (tipo == 4) {
+	                    	System.out.println("Volviendo.......");
+							opcion = 1;
+							break;
+						}
 	                    
 	                    System.out.println("ID: ");
 	                    int id = scanner.nextInt();
@@ -81,8 +90,8 @@ public class Administrador extends Usuarios {
 					        int issn = scanner.nextInt();
 					        System.out.print("Cantidad de articulos: ");
 					        int articulos = scanner.nextInt();
-					        biblioteca.agregarRecurso(new RevistaDigital(id, titulo, año, genero, "disponible", 0.0, edicion, periodicidad, issn, articulos));
-						}else {
+					        biblioteca.agregarRecurso(new RevistaDigital(id, titulo, año, genero, "disponible", 0.0, edicion, periodicidad, issn, articulos));						
+						}else{
 							System.err.println("Opcion no valida");
 						}
 	                                       
@@ -140,9 +149,9 @@ public class Administrador extends Usuarios {
 	                    boolean esPremium = scanner.nextBoolean();
 	                    
 	                    if (esPremium) {
-							biblioteca.registrarUsuario(new UsuarioPremium(idUsuario, nombreUsuario, mailUsuario));
+							biblioteca.registrarUsuario(new UsuarioPremium(idUsuario, nombreUsuario, mailUsuario, 0, 0));
 						}else {
-							biblioteca.registrarUsuario(new Usuarios(idUsuario, nombreUsuario, mailUsuario, 5));
+							biblioteca.registrarUsuario(new Usuarios(idUsuario, nombreUsuario, mailUsuario, 5, 0));
 						}
 	                    break;
 	                case 7:
