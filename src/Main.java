@@ -7,7 +7,7 @@ public class Main {
 		Prestamos prestamo = new Prestamos();
 		Scanner scanner = new Scanner(System.in);
 		Administrador admin = new Administrador(1, "Alejandro", "Alejandr@gmail.com");
-		Usuarios usuario = new Usuarios(0, null, null);
+		Usuarios usuario = new Usuarios();
 	
 		
 		boolean salir = false;
@@ -34,6 +34,8 @@ public class Main {
 			case 2:
 				
 				Usuarios.menuUsuario(prestamo, biblioteca, usuario, scanner);
+
+				
 				break;
 			case 3:
 				System.out.println("Saliendo........");

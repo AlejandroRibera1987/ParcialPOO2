@@ -21,7 +21,7 @@ public class Usuarios {
 		this.historialPrestamos = new ArrayList<>();
 		this.favoritos = new ArrayList<>();
 		this.limitePrestamosSimultaneos = 5;
-		this.prestamosActivos = 0;
+		this.prestamosActivos = prestamosActivos;
 	}
 	
 	public Usuarios(int idUsuario, String nombre, String email) {
@@ -30,6 +30,9 @@ public class Usuarios {
 		this.email = email;
 	}
 	
+	public Usuarios() {
+		
+	}
 	
 	public int getPrestamosActivos() {
 		return prestamosActivos;
@@ -96,10 +99,8 @@ public class Usuarios {
 	}
 
 	
-	
 	public static void menuUsuario(Prestamos prestamo, BibliotecaDigital biblioteca, Usuarios usuario, Scanner scanner) {
 		boolean salir = false;
-		
 		
 		
 		while(!salir) {
