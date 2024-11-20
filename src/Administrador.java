@@ -219,7 +219,7 @@ public class Administrador extends Usuarios {
 	        			System.out.println("-------------Reporte de Prestamos----------------");
 	        			
 	        			for (Prestamos prestamo : biblioteca.getPrestamos()) {
-	        				if(prestamo.getEstado().equalsIgnoreCase("activo")) {
+	        				if(prestamo.getEstado().obtenerEstado().equals("activo")) {
 	        					hayPrestamosActivos = true;
 	        					System.out.println("Recurso: " + prestamo.getRecurso().getTitulo());
 	        					System.out.println("Nombre de Usuario: " + prestamo.getUsuario().getNombre());

@@ -97,7 +97,7 @@ public class Prestamos {
 	        if (prestamo.getEstado() != null && prestamo.getEstado().obtenerEstado().equals("activo")) {
 	            System.out.println("ID Recurso: " + prestamo.getRecurso().getId() + 
 	                               " - Título: " + prestamo.getRecurso().getTitulo() + 
-	                               " - Estado: " + prestamo.getEstado());
+	                               " - Estado: " + prestamo.getEstado().obtenerEstado());
 	        }
 	    }
 	}
