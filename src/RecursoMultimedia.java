@@ -8,7 +8,7 @@ public class RecursoMultimedia {
 	public String autor;
 	public int añoPublicacion;
 	public String genero;
-	public String estado;
+	public Estado estado;
 	public double calificacion;
 	private List<Usuarios> reservas;
 	
@@ -20,7 +20,7 @@ public class RecursoMultimedia {
 		this.autor = autor;
 		this.añoPublicacion = añoPublicacion;
 		this.genero = genero;
-		this.estado = "disponible";
+		this.estado = new EstadoDisponible();
 		this.calificacion = 0.0;
 		this.reservas = new ArrayList<>();
 	}
@@ -49,11 +49,11 @@ public class RecursoMultimedia {
 		return titulo;
 	}
 	
-	public String getEstado () {
+	public Estado getEstado () {
 		return estado;
 	}
 	
-	public void setEstado(String estado) {
+	public void setEstado(Estado estado) {
 		this.estado = estado;
 	}
 	
@@ -74,8 +74,8 @@ public class RecursoMultimedia {
 	}
 
 	public boolean reservar(Usuarios usuario) {
-		if("disponible".equalsIgnoreCase(estado)) {
-			estado = "reservado";
+		if(estado.obtenerEstado().equals("disponible")) {
+			estado = new EstadoPrestado();
 			reservas.add(usuario);
 			System.out.println("La reserva de " + usuario.getNombre() + " fue exitosa");
 			return true;

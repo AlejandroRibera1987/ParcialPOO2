@@ -10,3 +10,7 @@
 /Usuarios.class
 /TipoUsuario.class
 /Estado.class
+/EstadoActivo.class
+/EstaFinalizado.class
+/EstadoDisponible.class
+/EstadoPrestado.class

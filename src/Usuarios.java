@@ -62,22 +62,6 @@ public class Usuarios {
 	public List<Prestamos> getHistorialPrestamos() {
 		return historialPrestamos;
 	}
-	
-	public void mostrarPrestamosActivos() {
-	    if (historialPrestamos == null || historialPrestamos.isEmpty()) {
-	        System.out.println("No tiene préstamos activos.");
-	        return;
-	    }
-
-	    System.out.println("Préstamos Activos:");
-	    for (Prestamos prestamo : historialPrestamos) {
-	        if (prestamo.getEstado() != null && prestamo.getEstado().equalsIgnoreCase("activo")) {
-	            System.out.println("ID Recurso: " + prestamo.getRecurso().getId() + 
-	                               " - Título: " + prestamo.getRecurso().getTitulo() + 
-	                               " - Estado: " + prestamo.getEstado());
-	        }
-	    }
-	}
 
 	public List<RecursoMultimedia> getFavoritos() {
 		return favoritos;
@@ -134,7 +118,7 @@ public class Usuarios {
 			System.out.println("1- Listar recursos");
 			System.out.println("2- Realizar prestamo");
 			System.out.println("3- Ver prestamos");
-			System.out.println("4- Realizar renovaciones");
+			System.out.println("4- Realizar Devolucion");
 			System.out.println("5- control de reservas");
 			System.out.println("6- Salir");
 			
@@ -167,7 +151,7 @@ public class Usuarios {
 					break;
 				}
 				
-				if (!recurso.getEstado().equalsIgnoreCase("disponible")) {
+				if (!recurso.getEstado().obtenerEstado().equals("disponible")) {
 					System.err.println("El recurso no esta disponible");
 					break;
 				}
@@ -183,9 +167,42 @@ public class Usuarios {
 				break;
 			case 3:
 				
-				usuario.mostrarPrestamosActivos();
+				prestamo.mostrarPrestamosActivos(usuario);
 								
 				break;
+			case 4:
+				System.out.println("ingreso ID del recurso que desea devolver");
+				int idRecursoDevolucion = scanner.nextInt();
+				
+				RecursoMultimedia recursoADevolver = biblioteca.buscarRecurso(idRecursoDevolucion);
+				
+				if (recursoADevolver == null) {
+					System.err.println("Recurso no encontrado");
+					break;
+				}
+				
+				if (!recursoADevolver.getEstado().obtenerEstado().equals("prestado")) {
+					System.err.println("El recurso no esta Prestado");
+					break;
+				}
+				
+				Prestamos prestamoADevolver = null;
+				
+				for (Prestamos prestamos : usuario.getHistorialPrestamos()) {
+					if(prestamos.getRecurso().getId() == idRecursoDevolucion && prestamos.getEstado().obtenerEstado().equals("activo")) {
+						prestamoADevolver = prestamos;
+						break;
+					}
+				}
+				
+				if (prestamoADevolver == null) {
+					System.err.println("El prestamo no esta activo");
+				}
+					
+					prestamoADevolver.devolverPrestamo(usuario, biblioteca);
+					
+					break;
+				
 			case 6:
 				System.out.println("Saliendo......");
 				salir = true;
