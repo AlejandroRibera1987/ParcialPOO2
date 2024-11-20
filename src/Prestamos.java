@@ -49,6 +49,10 @@ public class Prestamos {
         this.estado = estado;
     }
 	
+	public void setRecurso(RecursoMultimedia recurso) {
+		this.recurso = recurso;
+	}
+
 	public RecursoMultimedia getRecurso() {
 		return recurso;
 	}
