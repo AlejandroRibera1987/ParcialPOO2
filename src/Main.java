@@ -7,14 +7,18 @@ public class Main {
 		Prestamos prestamo = new Prestamos();
 		Scanner scanner = new Scanner(System.in);
 		Administrador admin = new Administrador(1, "Alejandro", "Alejandr@gmail.com");
-		Usuarios usuario = new Usuarios();
-	
+		Usuarios usuarioActual = new Usuarios(2, "Pedro", "pedro@gmail", 0, TipoUsuario.REGULAR);
+		biblioteca.registrarUsuario(usuarioActual);
+		Usuarios usuarioActual2 = new Usuarios(3, "Juan", "juan@gmail", 0, TipoUsuario.REGULAR);
+		biblioteca.registrarUsuario(usuarioActual2);
+		biblioteca.agregarRecurso(new AudioLibro(30, "Prueba", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(33, "Sangre", 2024, "Terror", "disponible", 10, 20, "Ingles"));
 		
 		boolean salir = false;
 		
 		while (!salir) {
 			System.out.println("\n-------Sistema Biblioteca Digital----------");
-			System.out.println("--------------Menu Principal------------");
+			System.out.println("-------------Menu Principal--------------");
 			System.out.println("1- Menu Administrador");
 			System.out.println("2- menu Usuario");
 			System.out.println("3- salir");
@@ -33,7 +37,17 @@ public class Main {
 				break;
 			case 2:
 				
-				Usuarios.menuUsuario(prestamo, biblioteca, usuario, scanner);
+				System.out.println("Ingreso su ID de Usuario: ");
+				int idUsuarioActual = scanner.nextInt();
+				
+				usuarioActual = biblioteca.buscarUsuario(idUsuarioActual);
+				
+				if (usuarioActual != null) {
+					Usuarios.menuUsuario(prestamo, biblioteca, usuarioActual, scanner);					
+				}else {
+					System.err.println("El Usuario no existe o no se cargo por el administrador");
+				}
+				
 
 				
 				break;

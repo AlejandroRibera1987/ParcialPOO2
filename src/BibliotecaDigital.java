@@ -120,29 +120,44 @@ public class BibliotecaDigital {
 			System.err.println("No se encontro el usuario");
 		}
 	}
-	
-	public void verRecursos(RecursoMultimedia recurso) {
-		for (RecursoMultimedia recurso1 : catalogo) {
-			System.out.println(recurso1);
-		}
-	}
+
 	
 	public void cambiarPlan(int idUsuario, boolean esPremium) {
 		Usuarios usuario = buscarUsuario(idUsuario);
 		
 		if (usuario != null) {
+			Usuarios nuevoUsuario;
 			if (esPremium) {
-				usuarios.remove(usuario);
-				usuarios.add(new UsuarioPremium(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), usuario.getLimitePrestamosSimultaneos(), usuario.getPrestamosActivos()));
+				nuevoUsuario = new UsuarioPremium(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), usuario.getPrestamosActivos(), TipoUsuario.PREMIUM);
 			}else {
-				usuarios.remove(usuario);
-				usuarios.add(new Usuarios(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), usuario.getLimitePrestamosSimultaneos(), usuario.getPrestamosActivos()));
+				nuevoUsuario = new Usuarios(usuario.getIdUsuario(), usuario.getNombre(), usuario.getEmail(), usuario.getPrestamosActivos(), TipoUsuario.REGULAR);
 			}
 			
-			System.out.println("Se actualizo el plan Correctamente");
+			if (nuevoUsuario.historialPrestamos == null) {
+				nuevoUsuario.historialPrestamos = new ArrayList<>();
+			}
+			if (nuevoUsuario.historialPrestamos != null) {
+				nuevoUsuario.historialPrestamos.addAll(usuario.getHistorialPrestamos());				
+			}
+			if (nuevoUsuario.favoritos == null) {
+				nuevoUsuario.favoritos = new ArrayList<>();
+			}
+			if (nuevoUsuario.favoritos != null) {
+				nuevoUsuario.favoritos.addAll(usuario.getFavoritos());				
+			}
+			
+			usuarios.remove(usuario);
+			usuarios.add(nuevoUsuario);
+			System.out.println("El Plan se Cambio Correctamente");
 		}else {
-			System.err.println("Usuario no encontrado");
+			System.err.println("No se encontro el usuario");
 		}
+		
+	}
+	
+	public static boolean validarUsuario(int idUsuario) {
+		return false;
+		
 	}
 
 }

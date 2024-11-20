@@ -149,9 +149,9 @@ public class Administrador extends Usuarios {
 	                    boolean esPremium = scanner.nextBoolean();
 	                    
 	                    if (esPremium) {
-							biblioteca.registrarUsuario(new UsuarioPremium(idUsuario, nombreUsuario, mailUsuario, 0, 0));
+							biblioteca.registrarUsuario(new UsuarioPremium(idUsuario, nombreUsuario, mailUsuario, 0, TipoUsuario.PREMIUM));
 						}else {
-							biblioteca.registrarUsuario(new Usuarios(idUsuario, nombreUsuario, mailUsuario, 5, 0));
+							biblioteca.registrarUsuario(new Usuarios(idUsuario, nombreUsuario, mailUsuario, 0, TipoUsuario.REGULAR));
 						}
 	                    break;
 	                case 7:

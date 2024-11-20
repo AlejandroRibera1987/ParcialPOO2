@@ -25,7 +25,7 @@ public class Prestamos {
 	}
 	
 	public Prestamos() {
-		
+	
 	}
 	
 	
@@ -45,6 +45,10 @@ public class Prestamos {
 		return estado;
 	}
 
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+	
 	public RecursoMultimedia getRecurso() {
 		return recurso;
 	}

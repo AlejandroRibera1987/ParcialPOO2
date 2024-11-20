@@ -4,10 +4,10 @@ public class UsuarioPremium extends Usuarios {
 
 
 	
-	public UsuarioPremium(int idUsuario, String nombre, String email, int limitePrestamosSimultaneos,
-			int prestamosActivos) {
-		super(idUsuario, nombre, email, limitePrestamosSimultaneos, prestamosActivos);
+	public UsuarioPremium(int idUsuario, String nombre, String email, int prestamosActivos, TipoUsuario tipoUsuario) {
+		super(idUsuario, nombre, email, prestamosActivos, tipoUsuario);
 	}
+	
 
 	public boolean puedeRealizarPrestamo() {
 		return true;

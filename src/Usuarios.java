@@ -12,26 +12,35 @@ public class Usuarios {
 	protected List<RecursoMultimedia> favoritos;
 	protected int limitePrestamosSimultaneos;
 	protected int prestamosActivos;
+	protected TipoUsuario tipoUsuario;
 	
-	public Usuarios(int idUsuario, String nombre, String email, int limitePrestamosSimultaneos, int prestamosActivos) {
+	public Usuarios(int idUsuario, String nombre, String email, int limitePrestamosSimultaneos, int prestamosActivos, TipoUsuario tipoUsuario) {
 		super();
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.email = email;
 		this.historialPrestamos = new ArrayList<>();
 		this.favoritos = new ArrayList<>();
-		this.limitePrestamosSimultaneos = 5;
+		this.limitePrestamosSimultaneos = limitePrestamosSimultaneos;
 		this.prestamosActivos = prestamosActivos;
+	}
+	
+	
+	public Usuarios(int idUsuario, String nombre, String email, int prestamosActivos, TipoUsuario tipoUsuario) {
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.email = email;
+		this.prestamosActivos = prestamosActivos;
+		this.tipoUsuario = tipoUsuario;
+	    this.historialPrestamos = new ArrayList<>(); 
+	    this.favoritos = new ArrayList<>(); 
+	    this.limitePrestamosSimultaneos = 5;
 	}
 	
 	public Usuarios(int idUsuario, String nombre, String email) {
 		this.idUsuario = idUsuario;
 		this.nombre = nombre;
 		this.email = email;
-	}
-	
-	public Usuarios() {
-		
 	}
 	
 	public int getPrestamosActivos() {
@@ -53,17 +62,33 @@ public class Usuarios {
 	public List<Prestamos> getHistorialPrestamos() {
 		return historialPrestamos;
 	}
+	
+	public void mostrarPrestamosActivos() {
+	    if (historialPrestamos == null || historialPrestamos.isEmpty()) {
+	        System.out.println("No tiene préstamos activos.");
+	        return;
+	    }
+
+	    System.out.println("Préstamos Activos:");
+	    for (Prestamos prestamo : historialPrestamos) {
+	        if (prestamo.getEstado() != null && prestamo.getEstado().equalsIgnoreCase("activo")) {
+	            System.out.println("ID Recurso: " + prestamo.getRecurso().getId() + 
+	                               " - Título: " + prestamo.getRecurso().getTitulo() + 
+	                               " - Estado: " + prestamo.getEstado());
+	        }
+	    }
+	}
 
 	public List<RecursoMultimedia> getFavoritos() {
 		return favoritos;
 	}
 	
 	public int getRenovacionesPermitidas() {
-		return 3;
+		return tipoUsuario.getRenovacionesPermitidas();
 	}
 	
-	public int getLimitePrestamosSimultaneos() {
-		return limitePrestamosSimultaneos;
+	public boolean getLimitePrestamosSimultaneos() {
+		return prestamosActivos < tipoUsuario.getLimitePrestamosSimultaneos();
 	}
 	
 	public void setNombre(String nombre) {
@@ -75,7 +100,7 @@ public class Usuarios {
 	}
 
 	public boolean puedeRealizarPrestamos() {
-		return prestamosActivos < limitePrestamosSimultaneos;
+		return prestamosActivos < tipoUsuario.getLimitePrestamosSimultaneos();
 	}
 	
 	public void incrementarPrestamos() {
@@ -104,10 +129,11 @@ public class Usuarios {
 		
 		
 		while(!salir) {
-			System.out.println("\n-------------Menu Usuario------------");
+			System.out.println("\n-----------Menu Usuario--------------");
+			System.out.println("---------Bienvenido " + usuario.getNombre() + "------------");
 			System.out.println("1- Listar recursos");
 			System.out.println("2- Realizar prestamo");
-			System.out.println("3- Realizar devoluciones");
+			System.out.println("3- Ver prestamos");
 			System.out.println("4- Realizar renovaciones");
 			System.out.println("5- control de reservas");
 			System.out.println("6- Salir");
@@ -133,17 +159,17 @@ public class Usuarios {
 				
 				if (recurso == null) {
 					System.err.println("Recurso no encontrado");
-					return;
+					break;
 				}
 				
 				if (!usuario.puedeRealizarPrestamos()) {
 					System.err.println("No puede realizar un retiro");
-					return;
+					break;
 				}
 				
 				if (!recurso.getEstado().equalsIgnoreCase("disponible")) {
 					System.err.println("El recurso no esta disponible");
-					return;
+					break;
 				}
 				
 				Prestamos nuevoPrestamo = new Prestamos();
@@ -154,6 +180,11 @@ public class Usuarios {
 					usuario.incrementarPrestamos();
 				}
 				
+				break;
+			case 3:
+				
+				usuario.mostrarPrestamosActivos();
+								
 				break;
 			case 6:
 				System.out.println("Saliendo......");
