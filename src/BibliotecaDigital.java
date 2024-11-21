@@ -87,10 +87,10 @@ public class BibliotecaDigital {
 	
 	public boolean eliminarRecurso(int idRecurso) {
 		
-		for (RecursoMultimedia recurso : catalogo) {
-			if (recurso.getId() == idRecurso) {
-				catalogo.remove(idRecurso);
-				System.out.println("Se Elimino correctamente el recurso");
+		for (int i = 0; i < catalogo.size(); i++) {
+			if (catalogo.get(i).getId() == idRecurso) {
+				catalogo.remove(i);
+				System.out.println("Se elimino correctamente el recurso");
 				return true;
 			}
 		}

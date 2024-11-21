@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -108,6 +109,9 @@ public class Usuarios {
 	}
 
 	
+	
+	
+	
 	public static void menuUsuario(Prestamos prestamo, BibliotecaDigital biblioteca, Usuarios usuario, Scanner scanner) {
 		boolean salir = false;
 		
@@ -119,8 +123,11 @@ public class Usuarios {
 			System.out.println("2- Realizar prestamo");
 			System.out.println("3- Ver prestamos");
 			System.out.println("4- Realizar Devolucion");
-			System.out.println("5- control de reservas");
-			System.out.println("6- Salir");
+			System.out.println("5- Ver renovaciones permitidas");
+			System.out.println("6- Ver prestamos activos");
+			System.out.println("8- Renovar prestamo");
+			System.out.println("9- Reservar recurso");
+			System.out.println("10- Salir");
 			
 			int opcion = scanner.nextInt();
 			
@@ -146,10 +153,6 @@ public class Usuarios {
 					break;
 				}
 				
-				if (!usuario.puedeRealizarPrestamos()) {
-					System.err.println("No puede realizar un retiro");
-					break;
-				}
 				
 				if (!recurso.getEstado().obtenerEstado().equals("disponible")) {
 					System.err.println("El recurso no esta disponible");
@@ -161,7 +164,6 @@ public class Usuarios {
 				
 				if (prestamoCorrecto) {
 					usuario.historialPrestamos.add(nuevoPrestamo);
-					usuario.incrementarPrestamos();
 				}
 				
 				break;
@@ -189,7 +191,7 @@ public class Usuarios {
 				Prestamos prestamoADevolver = null;
 				
 				for (Prestamos prestamos : usuario.getHistorialPrestamos()) {
-					if(prestamos.getRecurso().getId() == idRecursoDevolucion && prestamos.getEstado().obtenerEstado().equals("activo")) {
+					if(prestamos.getRecurso() != null && prestamos.getRecurso().getId() == idRecursoDevolucion && prestamos.getEstado().obtenerEstado().equals("activo")) {
 						prestamoADevolver = prestamos;
 						break;
 					}
@@ -202,8 +204,34 @@ public class Usuarios {
 					prestamoADevolver.devolverPrestamo(usuario, biblioteca);
 					
 					break;
-				
+			case 5:
+				System.out.println("Limite para Prestar " + usuario.tipoUsuario.getLimitePrestamosSimultaneos());
+				System.out.println("Limite de renovaciones " + usuario.tipoUsuario.getRenovacionesPermitidas());							
+				break;
 			case 6:
+				System.out.println(usuario.getPrestamosActivos());
+				break;
+			case 8:
+				System.out.println("Ingrese el ID del recurso que quiere renovar");
+				int idRecursoARenovar = scanner.nextInt();
+				
+				//Prestamos prestamo = usuario.buscarPrestamoActivo(idRecursoARenovar);
+							
+				if (prestamo == null) {
+					System.err.println("No se encuentra activo el prestamo");
+				}else {
+					System.out.println("Se va a renovar por 3 dias mas");
+					LocalDate nuevaFecha = prestamo.getFechaFin().plusDays(3);
+					
+					
+					if (!prestamo.renovarPrestamo(nuevaFecha)) {
+						System.err.println("No se puede renovar");
+					}
+				}
+				
+
+				break;
+			case 10:
 				System.out.println("Saliendo......");
 				salir = true;
 				break;

@@ -11,8 +11,14 @@ public class Main {
 		biblioteca.registrarUsuario(usuarioActual);
 		Usuarios usuarioActual2 = new Usuarios(3, "Juan", "juan@gmail", 0, TipoUsuario.REGULAR);
 		biblioteca.registrarUsuario(usuarioActual2);
-		biblioteca.agregarRecurso(new AudioLibro(30, "Prueba", 2024, "Terror", "disponible", 10, 20, "Ingles"));
-		biblioteca.agregarRecurso(new AudioLibro(33, "Sangre", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		Usuarios usuarioActual3 = new UsuarioPremium(4, "Sandro", "juan@gmail", 0, TipoUsuario.PREMIUM);
+		biblioteca.registrarUsuario(usuarioActual3);
+		biblioteca.agregarRecurso(new AudioLibro(10, "Prueba1", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(20, "Sangre1", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(30, "Prueba2", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(40, "Sangre2", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(50, "Prueba3", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(60, "Sangre3", 2024, "Terror", "disponible", 10, 20, "Ingles"));
 		
 		boolean salir = false;
 		
