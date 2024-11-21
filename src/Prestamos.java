@@ -56,6 +56,10 @@ public class Prestamos {
 		this.recurso = recurso;
 	}
 
+	public List<Usuarios> getReservas() {
+		return reservas;
+	}
+
 	public RecursoMultimedia getRecurso() {
 		return recurso;
 	}
@@ -95,15 +99,15 @@ public class Prestamos {
 	
 	public void mostrarPrestamosActivos(Usuarios usuario) {
 	    if (usuario.historialPrestamos == null || usuario.historialPrestamos.isEmpty()) {
-	        System.out.println("No tiene préstamos activos.");
+	        System.out.println("No tiene prestamos activos");
 	        return;
 	    }
 
-	    System.out.println("Préstamos Activos:");
+	    System.out.println("Prestamos activos:");
 	    for (Prestamos prestamo : usuario.historialPrestamos) {
 	        if (prestamo.getEstado() != null && prestamo.getEstado().obtenerEstado().equals("activo")) {
 	            System.out.println("ID Recurso: " + prestamo.getRecurso().getId() + 
-	                               " - Título: " + prestamo.getRecurso().getTitulo() + 
+	                               " - Titulo: " + prestamo.getRecurso().getTitulo() + 
 	                               " - Estado: " + prestamo.getEstado().obtenerEstado());
 	        }
 	    }
@@ -123,12 +127,12 @@ public class Prestamos {
 		LocalDate fechaInicio = null;
 		
 		for (Prestamos prestamo : biblioteca.getPrestamos()) {
-			//System.out.println(prestamo.getFechaFin());
+			
 			fechaInicio = prestamo.getFechaInicio();
 		}
 		
 	    if (nuevaFechaFin.isBefore(fechaInicio)) {
-	        System.out.println("La fecha final no puede ser anterior a la fecha de inicio.");
+	        System.out.println("La fecha final no puede ser anterior a la fecha de inicio");
 	        return false;
 	    }
 
@@ -138,7 +142,7 @@ public class Prestamos {
 	        System.out.println("Se realizo la renovación del prestamo con exito" + " te quedan " + usuario.getRenovacionesPermitidas() + " renovaciones");
 	        return true;
 	    } else {
-	        System.out.println("No puedes renovar mas veces.");
+	        System.out.println("No puedes renovar mas veces");
 	        return false;
 	    }
 			
@@ -169,15 +173,42 @@ public class Prestamos {
 		return LocalDate.now().isAfter(fechaFin);
 	}
 	
-	public void hacerReservas(Usuarios usuario) {
-		if (recurso.getEstado().obtenerEstado().equals("disponible")) {
-			recurso.reservar(usuario);
-		}else if(recurso.getEstado().obtenerEstado().equals("reservado")) {
-			reservas.add(usuario);
-			System.out.println("Se realizo la reserva del Recurso con exito");
-		}else {
-			System.err.println("No esta disponible para la reserva");
+	public boolean hacerReservas(Usuarios usuario, int idRecurso, BibliotecaDigital biblioteca) {
+		
+		RecursoMultimedia recursoAReservar = biblioteca.buscarRecurso(idRecurso);
+		
+		if (recursoAReservar == null) {
+			System.err.println("El recurso no se encontro");
+			return false;
 		}
+		
+		 this.recurso = recursoAReservar;
+		
+		if (recurso.getEstado().obtenerEstado().equals("disponible")) {
+			System.out.println("El recurso esta disponible, se puede prestar");
+		}
+		
+		if (recurso.getEstado().obtenerEstado().equals("reservado")) {
+			
+			if (reservas.contains(usuario)) {
+				System.out.println("Ya tenes una reserva de este recurso");				
+			}
+
+			reservas.add(usuario);
+			System.out.println("Se realizo la reserva con exito");
+			return true;
+		}
+		
+		if (recurso.getEstado().obtenerEstado().equals("prestado")) {
+			System.err.println("El recurso ya esta prestado, no podes reservar");
+			return false;
+		}
+		return false;
+				
+	}
+	
+	public void mostrarReservasActivos(Usuarios usuario) {
+		
 	}
 
 	

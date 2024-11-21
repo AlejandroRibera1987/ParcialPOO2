@@ -133,7 +133,8 @@ public class Usuarios {
 			System.out.println("6- Ver prestamos activos y renovaciones restantes");
 			System.out.println("8- Renovar prestamo");
 			System.out.println("9- Reservar recurso");
-			System.out.println("10- Salir");
+			System.out.println("10- Ver reservas");
+			System.out.println("11- Salir");
 			
 			int opcion = scanner.nextInt();
 			
@@ -238,7 +239,17 @@ public class Usuarios {
 				
 
 				break;
+			case 9:
+				System.out.println("Ingrese el ID del recurso que desea reservar");
+				int idRecursoAReservar = scanner.nextInt();
+				
+				prestamo.hacerReservas(usuario, idRecursoAReservar, biblioteca);
+		
+				break;
 			case 10:
+				System.out.println("Menu para ver reservas");
+				break;
+			case 11:
 				System.out.println("Saliendo......");
 				salir = true;
 				break;
