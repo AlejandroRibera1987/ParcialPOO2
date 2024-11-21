@@ -155,9 +155,6 @@ public class BibliotecaDigital {
 		
 	}
 	
-	public static boolean validarUsuario(int idUsuario) {
-		return false;
-		
-	}
+
 
 }

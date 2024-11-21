@@ -16,8 +16,8 @@ public class Prestamos {
 					RecursoMultimedia recurso, Usuarios usuario) {
 		super();
 		this.fechaInicio = fechaInicio;
-		this.fechaFin = fechaFin;
-		this.renovacionesPermitidas = 5;
+		this.fechaFin = fechaInicio.plusDays(5);
+		this.renovacionesPermitidas = renovacionesPermitidas;
 		this.estado = new EstadoActivo();
 		this.recurso = recurso;
 		this.usuario = usuario;
@@ -28,7 +28,6 @@ public class Prestamos {
 	
 	}
 	
-	
 	public LocalDate getFechaInicio() {
 		return fechaInicio;
 	}
@@ -38,7 +37,11 @@ public class Prestamos {
 	}
 
 	public int getRenovacionesPermitidas() {
-		return renovacionesPermitidas;
+		return usuario.getTipoUsuario().getRenovacionesPermitidas();
+	}
+	
+	public void setRenovacionesPermitidas(int renovacionesPermitidas) {
+		this.renovacionesPermitidas = renovacionesPermitidas;
 	}
 
 	public Estado getEstado() {
@@ -115,19 +118,27 @@ public class Prestamos {
 		return null;
 	}
 	
-	public boolean renovarPrestamo(LocalDate nuevaFechaFin) {
+	public boolean renovarPrestamo(LocalDate nuevaFechaFin, BibliotecaDigital biblioteca, Usuarios usuario) {
+		
+		LocalDate fechaInicio = null;
+		
+		for (Prestamos prestamo : biblioteca.getPrestamos()) {
+			//System.out.println(prestamo.getFechaFin());
+			fechaInicio = prestamo.getFechaInicio();
+		}
+		
 	    if (nuevaFechaFin.isBefore(fechaInicio)) {
 	        System.out.println("La fecha final no puede ser anterior a la fecha de inicio.");
 	        return false;
 	    }
 
-	    if (renovacionesPermitidas > 0) {
+	    if (usuario.getRenovacionesPermitidas() > 0) {
 	        fechaFin = nuevaFechaFin;
 	        renovacionesPermitidas--;
-	        System.out.println("Se realizó la renovación del préstamo con éxito.");
+	        System.out.println("Se realizo la renovación del prestamo con exito" + " te quedan " + usuario.getRenovacionesPermitidas() + " renovaciones");
 	        return true;
 	    } else {
-	        System.out.println("No puedes renovar más veces.");
+	        System.out.println("No puedes renovar mas veces.");
 	        return false;
 	    }
 			

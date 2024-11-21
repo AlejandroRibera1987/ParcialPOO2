@@ -24,6 +24,7 @@ public class Usuarios {
 		this.favoritos = new ArrayList<>();
 		this.limitePrestamosSimultaneos = limitePrestamosSimultaneos;
 		this.prestamosActivos = prestamosActivos;
+		this.tipoUsuario = tipoUsuario;
 	}
 	
 	
@@ -44,6 +45,11 @@ public class Usuarios {
 		this.email = email;
 	}
 	
+	public TipoUsuario getTipoUsuario() {
+		return tipoUsuario;
+	}
+
+
 	public int getPrestamosActivos() {
 		return prestamosActivos;
 	}
@@ -124,7 +130,7 @@ public class Usuarios {
 			System.out.println("3- Ver prestamos");
 			System.out.println("4- Realizar Devolucion");
 			System.out.println("5- Ver renovaciones permitidas");
-			System.out.println("6- Ver prestamos activos");
+			System.out.println("6- Ver prestamos activos y renovaciones restantes");
 			System.out.println("8- Renovar prestamo");
 			System.out.println("9- Reservar recurso");
 			System.out.println("10- Salir");
@@ -209,24 +215,25 @@ public class Usuarios {
 				System.out.println("Limite de renovaciones " + usuario.tipoUsuario.getRenovacionesPermitidas());							
 				break;
 			case 6:
-				System.out.println(usuario.getPrestamosActivos());
+				System.out.println("Prestamos activos " + usuario.getPrestamosActivos());
+				System.out.println("Renovaciones que te quedan " + usuario.getRenovacionesPermitidas());
 				break;
 			case 8:
 				System.out.println("Ingrese el ID del recurso que quiere renovar");
 				int idRecursoARenovar = scanner.nextInt();
 				
-				//Prestamos prestamo = usuario.buscarPrestamoActivo(idRecursoARenovar);
+				Prestamos renovacion = prestamo.prestamoActivoUsuario(usuario, idRecursoARenovar);
 							
-				if (prestamo == null) {
+				if (renovacion == null) {
 					System.err.println("No se encuentra activo el prestamo");
 				}else {
-					System.out.println("Se va a renovar por 3 dias mas");
-					LocalDate nuevaFecha = prestamo.getFechaFin().plusDays(3);
-					
-					
-					if (!prestamo.renovarPrestamo(nuevaFecha)) {
-						System.err.println("No se puede renovar");
+					LocalDate nuevaFecha = null;
+					for (Prestamos prestamo1 : biblioteca.getPrestamos()) {
+						//System.out.println(prestamo1.getFechaFin());
+						nuevaFecha = prestamo1.getFechaFin().plusDays(3);					
 					}
+					//System.out.println(nuevaFecha);
+					prestamo.renovarPrestamo(nuevaFecha, biblioteca, usuario);
 				}
 				
 
