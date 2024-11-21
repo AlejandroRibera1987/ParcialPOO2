@@ -6,6 +6,7 @@
 /EstadoActivo.class
 /EstadoDisponible.class
 /EstadoPrestado.class
+/EstadoReservado.class
 /LibroElectronico.class
 /Main.class
 /Prestamos.class
@@ -14,4 +15,3 @@
 /TipoUsuario.class
 /UsuarioPremium.class
 /Usuarios.class
-/EstadoReservado.class

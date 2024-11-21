@@ -1,6 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
 
 public class RecursoMultimedia {
 	public int idRecurso;
@@ -10,7 +7,6 @@ public class RecursoMultimedia {
 	public String genero;
 	public Estado estado;
 	public double calificacion;
-	private List<Usuarios> reservas;
 	
 	public RecursoMultimedia(int idRecurso, String titulo, String autor, int añoPublicacion, String genero,
 			String estado, double calificacion) {
@@ -22,7 +18,6 @@ public class RecursoMultimedia {
 		this.genero = genero;
 		this.estado = new EstadoDisponible();
 		this.calificacion = 0.0;
-		this.reservas = new ArrayList<>();
 	}
 	
 	public String getGenero() {
@@ -69,21 +64,7 @@ public class RecursoMultimedia {
 		this.genero = genero;
 	}
 
-	public List<Usuarios> getReservas() {
-		return reservas;
-	}
 
-	public boolean reservar(Usuarios usuario) {
-		if(estado.obtenerEstado().equals("disponible")) {
-			estado = new EstadoPrestado();
-			reservas.add(usuario);
-			System.out.println("La reserva de " + usuario.getNombre() + " fue exitosa");
-			return true;
-		}else {
-			System.err.println("La reserva no esta disponible");
-			return false;
-		}
-	}
 
 	
 	
