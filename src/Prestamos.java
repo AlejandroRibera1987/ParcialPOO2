@@ -61,16 +61,6 @@ public class Prestamos {
 		return usuario;
 	}
 	
-	public Prestamos buscarPrestamoActivo(int idRecurso) {
-	    for (Prestamos prestamo : usuario.historialPrestamos) {
-	        if (prestamo.getRecurso() != null && 
-	            prestamo.getRecurso().getId() == idRecurso && 
-	            prestamo.getEstado().obtenerEstado().equals("activo")) {
-	            return prestamo;
-	        }
-	    }
-	    return null; // No se encontró préstamo activo
-	}
 
 	
 	public boolean realizarPrestamo(Usuarios usuario, RecursoMultimedia recurso, BibliotecaDigital biblioteca) {
