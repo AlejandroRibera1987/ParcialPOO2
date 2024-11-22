@@ -125,8 +125,9 @@ public class Usuarios {
 			System.out.println("2- Realizar prestamo");
 			System.out.println("3- Ver prestamos");
 			System.out.println("4- Realizar Devolucion");
-			System.out.println("5- Ver renovaciones permitidas");
-			System.out.println("6- Ver prestamos activos y renovaciones restantes");
+			System.out.println("5- Agregar favorito");
+			System.out.println("6 - Ver favoritos");
+			System.out.println("7- Ver prestamos activos y renovaciones restantes");
 			System.out.println("8- Renovar prestamo");
 			System.out.println("9- Reservar recurso");
 			System.out.println("10- Ver reservas");
@@ -208,10 +209,17 @@ public class Usuarios {
 					
 					break;
 			case 5:
-				System.out.println("Limite para Prestar " + usuario.tipoUsuario.getLimitePrestamosSimultaneos());
-				System.out.println("Limite de renovaciones " + usuario.tipoUsuario.getRenovacionesPermitidas());							
+				System.out.println("ingrese el ID del recuros que quiero agregar a favoritos");
+				int idRecursoAFavorito = scanner.nextInt();
+				
+				prestamo.agregarFavoritos(usuario, idRecursoAFavorito, biblioteca);
+											
 				break;
 			case 6:
+				prestamo.mostrarFavoritos(usuario);
+				break;
+			case 7:
+				System.out.println("Limite para Prestar " + usuario.tipoUsuario.getLimitePrestamosSimultaneos());
 				System.out.println("Prestamos activos " + usuario.getPrestamosActivos());
 				System.out.println("Renovaciones que te quedan " + usuario.getRenovacionesPermitidas());
 				break;
@@ -226,10 +234,8 @@ public class Usuarios {
 				}else {
 					LocalDate nuevaFecha = null;
 					for (Prestamos prestamo1 : biblioteca.getPrestamos()) {
-						//System.out.println(prestamo1.getFechaFin());
 						nuevaFecha = prestamo1.getFechaFin().plusDays(3);					
-					}
-					//System.out.println(nuevaFecha);
+					}					
 					prestamo.renovarPrestamo(nuevaFecha, biblioteca, usuario);
 				}
 				
@@ -243,7 +249,7 @@ public class Usuarios {
 		
 				break;
 			case 10:
-				System.out.println("Menu para ver reservas");
+				prestamo.mostrarReservasActivos(usuario);
 				break;
 			case 11:
 				System.out.println("Saliendo......");

@@ -9,14 +9,6 @@ public class UsuarioPremium extends Usuarios {
 	}
 	
 
-	public boolean puedeRealizarPrestamo() {
-		return true;
-	}
-	
-	public int getRenovacionesPermitidas() {
-		return Integer.MAX_VALUE;
-	}
-	
 	@Override
 	public String toString() {
 		return "Usuario Premium [idUsuario= " + idUsuario + " Nombre= " + nombre + " Email= " + email + " ]";

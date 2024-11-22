@@ -6,7 +6,6 @@ public class Prestamos {
 
 	private LocalDate fechaInicio;
 	private LocalDate fechaFin;
-	private int renovacionesPermitidas;
 	private Estado estado;
 	private RecursoMultimedia recurso;
 	private Usuarios usuario;
@@ -17,7 +16,6 @@ public class Prestamos {
 		super();
 		this.fechaInicio = fechaInicio;
 		this.fechaFin = fechaInicio.plusDays(5);
-		this.renovacionesPermitidas = renovacionesPermitidas;
 		this.estado = new EstadoActivo();
 		this.recurso = recurso;
 		this.usuario = usuario;
@@ -36,12 +34,15 @@ public class Prestamos {
 		return fechaFin;
 	}
 
+	public void setFechaFin(LocalDate fechaFin) {
+		this.fechaFin = fechaFin;
+	}
+
 	public int getRenovacionesPermitidas() {
 		return usuario.getTipoUsuario().getRenovacionesPermitidas();
 	}
 	
 	public void setRenovacionesPermitidas(int renovacionesPermitidas) {
-		this.renovacionesPermitidas = renovacionesPermitidas;
 	}
 
 	public Estado getEstado() {
@@ -86,6 +87,10 @@ public class Prestamos {
 		int renovaciones = usuario.getRenovacionesPermitidas();
 		Prestamos nuevoPrestamo = new Prestamos(fechaInicio, fechaFin, renovaciones, recurso, usuario);
 		
+		if (reservas != null && reservas.contains(usuario)) {
+			reservas.remove(usuario);
+		}
+		
 		usuario.getHistorialPrestamos().add(nuevoPrestamo);
 		recurso.getEstado().cambiarEstado(recurso);
 		usuario.incrementarPrestamos();
@@ -107,8 +112,11 @@ public class Prestamos {
 	    for (Prestamos prestamo : usuario.historialPrestamos) {
 	        if (prestamo.getEstado() != null && prestamo.getEstado().obtenerEstado().equals("activo")) {
 	            System.out.println("ID Recurso: " + prestamo.getRecurso().getId() + 
-	                               " - Titulo: " + prestamo.getRecurso().getTitulo() + 
-	                               " - Estado: " + prestamo.getEstado().obtenerEstado());
+	                               "\n - Titulo: " + prestamo.getRecurso().getTitulo() + 
+	                               "\n - Estado: " + prestamo.getEstado().obtenerEstado() +
+	                               "\n - Fecha de Inicio: " + prestamo.getFechaInicio() + 
+	                               "\n - fecha de Finalizacion: " + prestamo.getFechaFin() +
+	                               "\n-------------------------------------------");
 	        }
 	    }
 	}
@@ -128,23 +136,29 @@ public class Prestamos {
 		
 		for (Prestamos prestamo : biblioteca.getPrestamos()) {
 			
-			fechaInicio = prestamo.getFechaInicio();
+			if (prestamo.getUsuario().equals(usuario)) {
+				fechaInicio = prestamo.getFechaInicio();
+				
+				if (nuevaFechaFin.isBefore(fechaInicio)) {
+					System.out.println("La fecha final no puede ser anterior a la fecha de inicio");
+					return false;
+				}
+			    if (usuario.getRenovacionesPermitidas() > 0) {
+			        prestamo.setFechaFin(nuevaFechaFin);
+			        prestamo.setRenovacionesPermitidas(prestamo.getRenovacionesPermitidas() - 1);
+			        System.out.println("Se realizo la renovación del prestamo con exito");
+			        return true;
+			    } else {
+			        System.out.println("No puedes renovar mas veces");
+			        return false;
+			    }
+				
+			}
+			
 		}
 		
-	    if (nuevaFechaFin.isBefore(fechaInicio)) {
-	        System.out.println("La fecha final no puede ser anterior a la fecha de inicio");
-	        return false;
-	    }
-
-	    if (usuario.getRenovacionesPermitidas() > 0) {
-	        fechaFin = nuevaFechaFin;
-	        renovacionesPermitidas--;
-	        System.out.println("Se realizo la renovación del prestamo con exito" + " te quedan " + usuario.getRenovacionesPermitidas() + " renovaciones");
-	        return true;
-	    } else {
-	        System.out.println("No puedes renovar mas veces");
-	        return false;
-	    }
+		System.out.println("No se encontro un prestamo con este usuario");
+		return false;
 			
 	}
 	
@@ -192,25 +206,72 @@ public class Prestamos {
 			
 			if (reservas.contains(usuario)) {
 				System.out.println("Ya tenes una reserva de este recurso");				
+				return false;
 			}
 
+		}
+		
+		reservas = new ArrayList<>();
+		
+		if (recurso.getEstado().obtenerEstado().equals("prestado")) {
+			System.err.println("El recurso ya esta prestado");
 			reservas.add(usuario);
 			System.out.println("Se realizo la reserva con exito");
 			return true;
 		}
-		
-		if (recurso.getEstado().obtenerEstado().equals("prestado")) {
-			System.err.println("El recurso ya esta prestado, no podes reservar");
-			return false;
-		}
+		System.err.println("No se pudo realizar la reserva");
 		return false;
 				
 	}
 	
 	public void mostrarReservasActivos(Usuarios usuario) {
+		System.out.println("Reservas del usuario: " + usuario.getNombre());
 		
+		if (reservas == null || reservas.isEmpty()) {
+			System.out.println("No tiene reservcas activas");
+			return;
+		}
+		
+		for (Usuarios reserva : reservas) {
+			if (reserva.equals(usuario)) {
+				System.out.println("Recurso reservado: " + recurso.getTitulo() +
+									"\nEstado: " + recurso.getEstado().obtenerEstado());
+			}
+		}
 	}
 
+	public boolean agregarFavoritos(Usuarios usuario, int idRecurso, BibliotecaDigital biblioteca) {
+		
+		RecursoMultimedia recursoFavorito = biblioteca.buscarRecurso(idRecurso);
+		
+		if (recursoFavorito == null) {
+			System.err.println("El recurso no se encontro");
+			return false;
+		}
+		
+		if (usuario.getFavoritos().contains(recursoFavorito)) {
+			System.err.println("El recurso ya esta en la lista de favoritos");
+			return false;
+		}
+		
+		usuario.getFavoritos().add(recursoFavorito);
+		System.out.println("El recurso: " + recursoFavorito.getTitulo() + " se agrego con exito");
+		
+		return true;
+			
+		
+	}
 	
 	
+	public void mostrarFavoritos(Usuarios usuario) {
+		System.out.println("Favoritos de " + usuario.getNombre());
+		
+		for (RecursoMultimedia recurso : usuario.getFavoritos()) {
+			System.out.println("ID: " + recurso.getId() +
+								"\nTitulo: " + recurso.getTitulo() +
+								"\nAutor: " + recurso.getAutor() +
+								"\nAño de publicacion: " + recurso.getAñoPublicacion() +
+								"\n-----------------------------------------------------");
+		}
+	}
 }
