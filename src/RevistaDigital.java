@@ -5,11 +5,10 @@ public class RevistaDigital extends RecursoMultimedia {
 	private int periodicidad;
 	private int ISSN;
 	private int articulos;
-	
-	
-	public RevistaDigital(int idRecurso, String titulo, int añoPublicacion, String genero, String estado,
+
+	public RevistaDigital(int idRecurso, String titulo, String autor, int añoPublicacion, String genero, String estado,
 			double calificacion, int numeroEdicion, int periodicidad, int iSSN, int articulos) {
-		super(idRecurso, titulo, estado, añoPublicacion, genero, estado, calificacion);
+		super(idRecurso, titulo, autor, añoPublicacion, genero, estado, calificacion);
 		this.numeroEdicion = numeroEdicion;
 		this.periodicidad = periodicidad;
 		ISSN = iSSN;
@@ -39,7 +38,7 @@ public class RevistaDigital extends RecursoMultimedia {
 
 	@Override
 	public String toString() {
-		return "RevistaDigital [ID= " + idRecurso + " Titulo= " + titulo + " Genero= " + genero + " numeroEdicion= " + numeroEdicion + ", periodicidad= " + periodicidad + ", ISSN= " + ISSN
+		return "RevistaDigital [ID= " + idRecurso + " Titulo= " + titulo + " Autor= " + autor + " Genero= " + genero + " numeroEdicion= " + numeroEdicion + ", periodicidad= " + periodicidad + ", ISSN= " + ISSN
 				+ ", articulos= " + articulos + "]";
 	}
 	

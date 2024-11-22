@@ -13,12 +13,12 @@ public class Main {
 		biblioteca.registrarUsuario(usuarioActual2);
 		Usuarios usuarioActual3 = new UsuarioPremium(4, "Sandro", "juan@gmail", 0, TipoUsuario.PREMIUM);
 		biblioteca.registrarUsuario(usuarioActual3);
-		biblioteca.agregarRecurso(new AudioLibro(10, "Prueba1", 2024, "Terror", "disponible", 10, 20, "Ingles"));
-		biblioteca.agregarRecurso(new AudioLibro(20, "Sangre1", 2024, "Terror", "disponible", 10, 20, "Ingles"));
-		biblioteca.agregarRecurso(new AudioLibro(30, "Prueba2", 2024, "Terror", "disponible", 10, 20, "Ingles"));
-		biblioteca.agregarRecurso(new AudioLibro(40, "Sangre2", 2024, "Terror", "disponible", 10, 20, "Ingles"));
-		biblioteca.agregarRecurso(new AudioLibro(50, "Prueba3", 2024, "Terror", "disponible", 10, 20, "Ingles"));
-		biblioteca.agregarRecurso(new AudioLibro(60, "Sangre3", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(10, "Sangre Negra", "Juan Marquez", 2024, "Terror", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new AudioLibro(20, "Planeta Gol!!", "Pedro Perez", 2004, "Deportes", "disponible", 10, 20, "Ingles"));
+		biblioteca.agregarRecurso(new LibroElectronico(30, "Rosas Manchadas", "Alma Brava", 2014, "Romance", "disponible", 10, 20, "Ingles", 25, 30));
+		biblioteca.agregarRecurso(new LibroElectronico(40, "Planeta Abierto", "Pablo Bermudez", 2024, "Politica", "disponible", 10, 23, "pdf", 12, 10));
+		biblioteca.agregarRecurso(new RevistaDigital(50, "Futbol de Primera", "Juan Marquez", 2002, "Deportes", "disponible", 10, 20, 2566, 202, 25));
+		biblioteca.agregarRecurso(new RevistaDigital(60, "Cell", "Stephen", 2006, "Terror", "disponible", 10, 2, 222, 10, 122));
 		
 		boolean salir = false;
 		

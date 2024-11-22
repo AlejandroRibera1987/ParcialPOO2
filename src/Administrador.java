@@ -53,6 +53,8 @@ public class Administrador extends Usuarios {
 	                    System.out.println("ID: ");
 	                    int id = scanner.nextInt();
 	                    scanner.nextLine();
+	                    System.out.println("Autor: ");
+	                    String autor = scanner.nextLine();
 	                    System.out.println("Titulo: ");
 	                    String titulo = scanner.nextLine();
 	                    System.out.println("Año de publicacion: ");
@@ -61,6 +63,7 @@ public class Administrador extends Usuarios {
 	                    System.out.println("Genero: ");
 	                    String genero = scanner.nextLine();
 	                    
+	                    
 	                    if (tipo == 1) {
 							System.out.println("Duracion total: ");
 							double duracion = scanner.nextDouble();
@@ -68,7 +71,7 @@ public class Administrador extends Usuarios {
 							System.out.println("Idioma: ");
 							String idioma = scanner.nextLine();
 							
-							biblioteca.agregarRecurso(new AudioLibro(id, titulo, año, genero, "disponible", 0.0, duracion, idioma));
+							biblioteca.agregarRecurso(new AudioLibro(id, titulo, autor, año, genero, "disponible", 0.0, duracion, idioma));
 						}else if (tipo == 2) {
 					        System.out.print("Numero de paginas: ");
 					        int paginas = scanner.nextInt();
@@ -80,7 +83,7 @@ public class Administrador extends Usuarios {
 					        scanner.nextLine();
 					        System.out.print("ISBN: ");
 					        int isbn = scanner.nextInt();
-					        biblioteca.agregarRecurso(new LibroElectronico(id, titulo, año, genero, "disponible", 0.0, paginas, formato, tamaño, isbn));
+					        biblioteca.agregarRecurso(new LibroElectronico(id, titulo, autor, año, genero, "disponible", 0.0, paginas, formato, tamaño, isbn));
 						}else if(tipo == 3) {
 					        System.out.print("Numero de ediciin: ");
 					        int edicion = scanner.nextInt();
@@ -90,7 +93,7 @@ public class Administrador extends Usuarios {
 					        int issn = scanner.nextInt();
 					        System.out.print("Cantidad de articulos: ");
 					        int articulos = scanner.nextInt();
-					        biblioteca.agregarRecurso(new RevistaDigital(id, titulo, año, genero, "disponible", 0.0, edicion, periodicidad, issn, articulos));						
+					        biblioteca.agregarRecurso(new RevistaDigital(id, titulo, autor, año, genero, "disponible", 0.0, edicion, periodicidad, issn, articulos));						
 						}else{
 							System.err.println("Opcion no valida");
 						}
@@ -183,7 +186,7 @@ public class Administrador extends Usuarios {
 	                	String buscarGenero = scanner.nextLine();
 	                	
 	                	List<RecursoMultimedia> recursosGenero = biblioteca.buscarPorGenero(buscarGenero);
-	                	
+	                	System.out.println("Resultado de la Busqueda: \n");
 	                	if (!recursosGenero.isEmpty()) {
 							for (RecursoMultimedia recurso : recursosGenero) {
 								System.out.println(recurso);
@@ -200,7 +203,7 @@ public class Administrador extends Usuarios {
 	                	String buscarAutor = scanner.nextLine();
 	                	
 	                	List<RecursoMultimedia> recursosAutor = biblioteca.buscarPorAutor(buscarAutor);
-	                	
+	                	System.out.println("Resultado de la Busqueda: \n");
 	                	if (!recursosAutor.isEmpty()) {
 							for (RecursoMultimedia recurso : recursosAutor) {
 								System.out.println(recurso);
