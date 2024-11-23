@@ -43,6 +43,7 @@ public class Prestamos {
 	}
 	
 	public void setRenovacionesPermitidas(int renovacionesPermitidas) {
+		renovacionesPermitidas = getRenovacionesPermitidas() - 1;
 	}
 
 	public Estado getEstado() {

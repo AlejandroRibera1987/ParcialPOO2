@@ -16,26 +16,6 @@ public class RevistaDigital extends RecursoMultimedia {
 	}
 
 
-	public int getNumeroEdicion() {
-		return numeroEdicion;
-	}
-
-
-	public int getPeriodicidad() {
-		return periodicidad;
-	}
-
-
-	public int getISSN() {
-		return ISSN;
-	}
-
-
-	public int getArticulos() {
-		return articulos;
-	}
-
-
 	@Override
 	public String toString() {
 		return "RevistaDigital [ID= " + idRecurso + " Titulo= " + titulo + " Autor= " + autor + " Genero= " + genero + " numeroEdicion= " + numeroEdicion + ", periodicidad= " + periodicidad + ", ISSN= " + ISSN
